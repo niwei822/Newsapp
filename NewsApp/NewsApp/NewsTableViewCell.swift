@@ -27,21 +27,24 @@ class NewsTableViewCell: UITableViewCell {
     private let newsTitleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 18, weight: .medium)
+        label.font = .systemFont(ofSize: 22, weight: .bold)
         return label
     }()
     
     private let newssubTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 15, weight: .light)
         return label
     }()
     
     private let newsImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.layer.cornerRadius = 6
+        imageView.layer.masksToBounds = true
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .lightGray
-        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .secondarySystemBackground
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -69,11 +72,15 @@ class NewsTableViewCell: UITableViewCell {
                                       height: contentView.frame.size.height/2)
         newsImageView.frame = CGRect(x: contentView.frame.size.width - 150,
                                       y: 5,
-                                      width: 160,
+                                      width: 140,
                                       height: contentView.frame.size.height - 10)
     }
     override func prepareForReuse() {
+        
         super.prepareForReuse()
+        newsTitleLabel.text = nil
+        newssubTitleLabel.text = nil
+        newsImageView.image = nil
     }
     func configure(with viewModel: NewsTableViewCellViewModel) {
         newsTitleLabel.text = viewModel.title
